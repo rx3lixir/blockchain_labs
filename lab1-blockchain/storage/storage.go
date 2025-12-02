@@ -21,7 +21,7 @@ func SaveBlockchain(bc *blockchain.Blockchain) error {
 		return fmt.Errorf("error writing file: %v", err)
 	}
 
-	fmt.Println("Blockchain saved to: ", blockchainFile)
+	fmt.Println("✅ Blockchain saved to:", blockchainFile)
 	return nil
 }
 
@@ -40,7 +40,12 @@ func LoadBlockchain() (*blockchain.Blockchain, error) {
 		return nil, fmt.Errorf("error unmarshalling: %v", err)
 	}
 
-	fmt.Println("Blockchain loaded from: ", blockchainFile)
+	// Если ForkConfig не был загружен (старый формат), создаём дефолтный
+	if bc.ForkConfig == nil {
+		bc.ForkConfig = blockchain.DefaultForkConfig()
+	}
+
+	fmt.Println("✅ Blockchain loaded from:", blockchainFile)
 	return &bc, nil
 }
 
