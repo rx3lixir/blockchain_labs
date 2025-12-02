@@ -1,0 +1,50 @@
+{
+  "Blocks": [
+    {
+      "Index": 0,
+      "Timestamp": 1763473401,
+      "Data": {
+        "FullName": "GENESIS",
+        "Zachetka": "000000",
+        "Group": "GENESIS",
+        "Subject": "GENESIS",
+        "Course": 0,
+        "Grade": 0
+      },
+      "PreviousHash": "0",
+      "Hash": "001fd9f7198b057190f21fbc054b02ea0922f9490b8290bbf098ed3b4396404475a144fee6b6617a25cf2d25720884b9",
+      "Nonce": 179
+    },
+    {
+      "Index": 1,
+      "Timestamp": 1763473419,
+      "Data": {
+        "FullName": "Двоечников Иван Иванович",
+        "Zachetka": "202434",
+        "Group": "5.507M",
+        "Subject": "Иностранный язык",
+        "Course": 5,
+        "Grade": 5
+      },
+      "PreviousHash": "001fd9f7198b057190f21fbc054b02ea0922f9490b8290bbf098ed3b4396404475a144fee6b6617a25cf2d25720884b9",
+      "Hash": "0028cb354ea744aab1cb2a541ebdb932a46f2c2242a2b355fefa5869ea24b581af6d3b991ddddf6d9fa1470491620fcf",
+      "Nonce": 242
+    },
+    {
+      "Index": 2,
+      "Timestamp": 1763473455,
+      "Data": {
+        "FullName": "Отличников Иван Иванович",
+        "Zachetka": "202434",
+        "Group": "5.507M",
+        "Subject": "Технология блокчейн",
+        "Course": 5,
+        "Grade": 5
+      },
+      "PreviousHash": "0028cb354ea744aab1cb2a541ebdb932a46f2c2242a2b355fefa5869ea24b581af6d3b991ddddf6d9fa1470491620fcf",
+      "Hash": "00bee84203bc9de5bc738b2ea1b1a08a08dd4356d9cc21d82bb0b29dfec8380dfd6d66d82a16309b54d81c28a13ec752",
+      "Nonce": 126
+    }
+  ]
+}
+
