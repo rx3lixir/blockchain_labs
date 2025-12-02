@@ -1,0 +1,44 @@
+{
+  "Blocks": [
+    {
+      "Index": 0,
+      "Timestamp": 1764675759,
+      "Data": {
+        "FullName": "GENESIS",
+        "Zachetka": "000000",
+        "Group": "GENESIS",
+        "Subject": "GENESIS",
+        "Course": 0,
+        "Grade": 0,
+        "Teacher": ""
+      },
+      "PreviousHash": "0",
+      "Hash": "007be323836ad7ec23b875d37ae98bc8a1755f33aaab7e2dee8862cbe13ceb763805fc612a9c1afe65856f3e6b3735c0",
+      "Nonce": 862,
+      "ForkVersion": 0
+    },
+    {
+      "Index": 1,
+      "Timestamp": 1764675759,
+      "Data": {
+        "FullName": "Александров Александр Александрович",
+        "Zachetka": "202438",
+        "Group": "5.507M",
+        "Subject": "История",
+        "Course": 5,
+        "Grade": 5,
+        "Teacher": "Смирнова О.П."
+      },
+      "PreviousHash": "007be323836ad7ec23b875d37ae98bc8a1755f33aaab7e2dee8862cbe13ceb763805fc612a9c1afe65856f3e6b3735c0",
+      "Hash": "009bd3017a335a2a8be22c0c0c02eedb10de8d981c3f1497cc2bde841920bd1b24661f4cc0291fc140c29384e4af5c19",
+      "Nonce": 15,
+      "ForkVersion": 0
+    }
+  ],
+  "ForkConfig": {
+    "SoftForkHeight": 5,
+    "HardForkHeight": 10,
+    "DifficultyOld": "00",
+    "DifficultyNew": "000"
+  }
+}
