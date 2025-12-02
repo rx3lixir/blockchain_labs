@@ -2,8 +2,7 @@
 # CONFIGURATION
 # ============================================================================
 
-# Binary name for compilation
-BINARY_NAME=blockchain-app
+BINARY_NAME=bc-km
 
 # Auto-load .env file if it exists
 ifneq (,$(wildcard .env))
@@ -12,76 +11,42 @@ ifneq (,$(wildcard .env))
 endif
 
 # ============================================================================
-# DEFAULT TARGET
+# MAIN COMMANDS
 # ============================================================================
 
-all: build ## Default build command
+.PHONY: all build run clean help
 
-# ============================================================================
-# BUILD & RUN
-# ============================================================================
+all: build ## Default: build the application
 
 build: ## Build the binary
 	@echo "Building..."
-	go build -o ./bin/$(BINARY_NAME) .
+	@go build -o ./bin/$(BINARY_NAME) .
+	@echo "Build complete!"
 
 run: build ## Build and run the application
 	@echo "Running..."
-	./bin/$(BINARY_NAME)
+	@./bin/$(BINARY_NAME)
 
-clean: ## Clean all binaries
+clean: ## Clean binaries and blockchain data
 	@echo "Cleaning..."
-	go clean
-	rm -f ./bin/$(BINARY_NAME)
-	rm -f blockchain_data.json
+	@go clean
+	@rm -f ./bin/$(BINARY_NAME)
+	@rm -f blockchain.json
+	@echo "Clean complete!"
 
-# ============================================================================
-# PROGRAM OPERATIONS
-# ============================================================================
+init: ## Initialize fresh blockchain (deletes existing data)
+	@echo "Initializing fresh blockchain..."
+	@rm -f blockchain.json
+	@go run . -list
+	@echo "Fresh blockchain initialized!"
 
-list: ## Show all blocks
-	go run . -list
-
-validate: ## Validate blockchain integrity
-	go run . -validate
-
-debts: ## Find students with debts
-	go run . -debts
-
-init-blockchain: ## Initialize new blockchain (delete existing)
-	rm -f blockchain.json
-	go run . -list
-
-search-index: ## Search by index (usage: make search-index INDEX=1)
-	@if [ -z "$(INDEX)" ]; then \
-		echo "Ошибка: введите параметр INDEX"; \
-		echo "Пример: make search-index INDEX=1"; \
-		exit 1; \
-	fi
-	go run . -index $(INDEX)
-
-search: ## Search by custom keyword (usage: make search KEYWORD="Петров")
-	@if [ -z "$(KEYWORD)" ]; then \
-		echo "Ошибка: введите параметр KEYWORD"; \
-		echo "Пример: make search KEYWORD=Петров"; \
-		exit 1; \
-	fi
-	go run . -keyword "$(KEYWORD)"
-
-# Универсальная команда для добавления с параметрами
-add: ## Add custom record (usage: make add COURSE=3 GROUP="ИВТ-301" NAME="Иванов" RECORD="202101" SUBJECT="Математика" GRADE=5)
-	@if [ -z "$(COURSE)" ] || [ -z "$(GROUP)" ] || [ -z "$(NAME)" ] || [ -z "$(RECORD)" ] || [ -z "$(SUBJECT)" ] || [ -z "$(GRADE)" ]; then \
-		echo "Ошибка: Параметры: COURSE, GROUP, NAME, RECORD, SUBJECT, GRADE"; \
-		echo "Пример: make add COURSE=3 GROUP='ИВТ-301' NAME='Иванов И.И.' RECORD='202101' SUBJECT='Математика' GRADE=5"; \
-		exit 1; \
-	fi
-	go run . -add -course $(COURSE) -group "$(GROUP)" -name "$(NAME)" -record "$(RECORD)" -subject "$(SUBJECT)" -grade $(GRADE)
-
-# ============================================================================
-# UTILITIES
-# ============================================================================
-
-help: ## Show help
+help: ## Show this help message
 	@echo "Available commands:"
+	@echo ""
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \
-		awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-25s\033[0m %s\n", $$1, $$2}'
+		awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-15s\033[0m %s\n", $$1, $$2}'
+	@echo ""
+	@echo "For operations like add, search, validate, use:"
+	@echo "   ./bin/$(BINARY_NAME) --help"
+	@echo "   OR"
+	@echo "   go run . --help"

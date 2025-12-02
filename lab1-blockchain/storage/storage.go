@@ -13,15 +13,15 @@ const blockchainFile = "blockchain.json"
 func SaveBlockchain(bc *blockchain.Blockchain) error {
 	data, err := json.MarshalIndent(bc, "", "  ")
 	if err != nil {
-		return fmt.Errorf("ошибка сериализации: %v", err)
+		return fmt.Errorf("error making marshal indent: %v", err)
 	}
 
 	err = os.WriteFile(blockchainFile, data, 0o644)
 	if err != nil {
-		return fmt.Errorf("ошибка записи файла: %v", err)
+		return fmt.Errorf("error writing file: %v", err)
 	}
 
-	fmt.Println("Блокчейн сохранен в...", blockchainFile)
+	fmt.Println("Blockchain saved to: ", blockchainFile)
 	return nil
 }
 
@@ -31,16 +31,16 @@ func LoadBlockchain() (*blockchain.Blockchain, error) {
 		if os.IsNotExist(err) {
 			return nil, nil
 		}
-		return nil, fmt.Errorf("ошибка чтения файла: %v", err)
+		return nil, fmt.Errorf("error reading file: %v", err)
 	}
 
 	var bc blockchain.Blockchain
 	err = json.Unmarshal(data, &bc)
 	if err != nil {
-		return nil, fmt.Errorf("ошибка десериализации: %v", err)
+		return nil, fmt.Errorf("error unmarshalling: %v", err)
 	}
 
-	fmt.Println("Блокчейн загружен из", blockchainFile)
+	fmt.Println("Blockchain loaded from: ", blockchainFile)
 	return &bc, nil
 }
 
