@@ -51,16 +51,7 @@ func (s *JSONStorage) Load() (*domain.Blockchain, error) {
 		return nil, err
 	}
 
-	// Reconstruct blockchain
-	bc := domain.NewBlockchain(data.ForkConfig)
-
-	// Replace genesis with loaded blocks
-	bc = &domain.Blockchain{}
-
-	// Dobavi't suda SetBlocks method or use reflection
-	// Poka shto tak
-
-	return bc, nil
+	return domain.LoadBlockchain(data.Blocks, data.ForkConfig), nil
 }
 
 func (s *JSONStorage) Exists() bool {

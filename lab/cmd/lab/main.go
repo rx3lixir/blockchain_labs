@@ -30,10 +30,33 @@ func main() {
 	flag.Parse()
 
 	var s storage.Storage
+
 	if *useCSV {
 		s = storage.NewCSVStorage("blockchain.csv")
 	} else {
 		s = storage.NewJSONStorage("blockchain.json")
+	}
+
+	// Migration
+	if *useCSV {
+		if !s.Exists() {
+			jsonStorage := storage.NewJSONStorage("blockchain.json")
+			if jsonStorage.Exists() {
+				oldBc, err := jsonStorage.Load()
+				if err != nil {
+					fmt.Printf("Failed to read JSON: %v\n", err)
+					os.Exit(1)
+				}
+				if oldBc != nil {
+					fmt.Println("Old bc detected (JSON) forking...")
+					if err := s.Save(oldBc); err != nil {
+						fmt.Printf("Error saving to CSV: %v\n", err)
+						os.Exit(1)
+					}
+					fmt.Println("Fork completed")
+				}
+			}
+		}
 	}
 
 	app, err := cli.NewApp(s)
@@ -66,11 +89,16 @@ func main() {
 			Grade:    *grade,
 			Teacher:  *teacher,
 		}
-		if err := app.AddRecord(record); err != nil {
+
+		fmt.Println("Mining block...")
+		miningTime, err := app.AddRecord(record)
+		if err != nil {
 			fmt.Printf("Error adding record: %v\n", err)
 			os.Exit(1)
 		}
-		fmt.Println("Record added successfully")
+
+		fmt.Printf("✓ Block mined successfully in %v\n", miningTime)
+
 	default:
 		flag.Usage()
 	}

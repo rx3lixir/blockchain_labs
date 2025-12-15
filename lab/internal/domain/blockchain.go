@@ -38,9 +38,35 @@ func NewBlockchain(config *ForkConfig) *Blockchain {
 	}
 }
 
-func (bc *Blockchain) AddBlock(data StudentRecord) error {
+// LoadBlockchain creates a blockchain from existing blocks (for loading from storage)
+func LoadBlockchain(blocks []*Block, config *ForkConfig) *Blockchain {
+	if config == nil {
+		config = &ForkConfig{
+			SoftForkHeight: 5,
+			HardForkHeight: 10,
+			DifficultyOld:  "00",
+			DifficultyNew:  "000",
+		}
+	}
+
+	return &Blockchain{
+		blocks:     blocks,
+		forkConfig: config,
+	}
+}
+
+// AddBlock now returns the mining duration along with any error
+func (bc *Blockchain) AddBlock(data StudentRecord) (time.Duration, error) {
+	if len(bc.blocks) == 0 {
+		return 0, fmt.Errorf("blockchain has no blocks (corrupted)")
+	}
+
 	prevBlock := bc.blocks[len(bc.blocks)-1]
 	nextIndex := prevBlock.Index + 1
+
+	if nextIndex >= bc.forkConfig.SoftForkHeight && strings.TrimSpace(data.Teacher) == "" {
+		return 0, fmt.Errorf("teacher is required. soft fork started")
+	}
 
 	forkVersion := bc.determineForkVersion(nextIndex)
 	difficulty := bc.getDifficulty(nextIndex)
@@ -55,10 +81,10 @@ func (bc *Blockchain) AddBlock(data StudentRecord) error {
 	}
 
 	miner := NewMiner(hasher)
-	miner.Mine(newBlock, difficulty)
+	miningTime := miner.Mine(newBlock, difficulty)
 
 	bc.blocks = append(bc.blocks, newBlock)
-	return nil
+	return miningTime, nil
 }
 
 func (bc *Blockchain) Blocks() []*Block {

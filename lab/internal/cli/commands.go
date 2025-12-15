@@ -2,6 +2,7 @@ package cli
 
 import (
 	"fmt"
+	"time"
 
 	"github.com/rx3lixir/lab_bc/internal/domain"
 	"github.com/rx3lixir/lab_bc/internal/storage"
@@ -31,11 +32,18 @@ func NewApp(storage storage.Storage) (*App, error) {
 	}, nil
 }
 
-func (a *App) AddRecord(record domain.StudentRecord) error {
-	if err := a.blockchain.AddBlock(record); err != nil {
-		return err
+// AddRecord now returns mining duration
+func (a *App) AddRecord(record domain.StudentRecord) (time.Duration, error) {
+	miningTime, err := a.blockchain.AddBlock(record)
+	if err != nil {
+		return 0, err
 	}
-	return a.storage.Save(a.blockchain)
+
+	if err := a.storage.Save(a.blockchain); err != nil {
+		return 0, err
+	}
+
+	return miningTime, nil
 }
 
 func (a *App) ListBlocks() {
