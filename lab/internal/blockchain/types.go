@@ -1,19 +1,17 @@
-package domain
+package blockchain
 
 const (
-	ForkOriginal = iota
-	ForkSoft
-	ForkHard
+	Difficulty = "00"
 )
 
 type StudentRecord struct {
+	ID       string
 	FullName string
 	Zachetka string
 	Group    string
 	Subject  string
 	Course   int
 	Grade    int
-	Teacher  string
 }
 
 type Block struct {
@@ -23,12 +21,4 @@ type Block struct {
 	PreviousHash string
 	Hash         string
 	Nonce        int
-	ForkVersion  int
-}
-
-type ForkConfig struct {
-	SoftForkHeight int
-	HardForkHeight int
-	DifficultyOld  string
-	DifficultyNew  string
 }

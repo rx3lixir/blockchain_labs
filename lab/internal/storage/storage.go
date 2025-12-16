@@ -1,9 +1,9 @@
 package storage
 
-import "github.com/rx3lixir/lab_bc/internal/domain"
+import "github.com/rx3lixir/lab_bc/internal/blockchain"
 
 type Storage interface {
-	Save(bc *domain.Blockchain) error
-	Load() (*domain.Blockchain, error)
+	Save(bc *blockchain.Blockchain) error
+	Load() (*blockchain.Blockchain, error)
 	Exists() bool
 }

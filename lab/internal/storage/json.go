@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"os"
 
-	"github.com/rx3lixir/lab_bc/internal/domain"
+	"github.com/rx3lixir/lab_bc/internal/blockchain"
 )
 
 type JSONStorage struct {
@@ -15,13 +15,11 @@ func NewJSONStorage(filename string) *JSONStorage {
 	return &JSONStorage{filename: filename}
 }
 
-func (s *JSONStorage) Save(bc *domain.Blockchain) error {
+func (s *JSONStorage) Save(bc *blockchain.Blockchain) error {
 	data := struct {
-		Blocks     []*domain.Block
-		ForkConfig *domain.ForkConfig
+		Blocks []*blockchain.Block `json:"blocks"`
 	}{
-		Blocks:     bc.Blocks(),
-		ForkConfig: bc.ForkConfig(),
+		Blocks: bc.Blocks(),
 	}
 
 	bytes, err := json.MarshalIndent(data, "", "  ")
@@ -32,7 +30,7 @@ func (s *JSONStorage) Save(bc *domain.Blockchain) error {
 	return os.WriteFile(s.filename, bytes, 0o644)
 }
 
-func (s *JSONStorage) Load() (*domain.Blockchain, error) {
+func (s *JSONStorage) Load() (*blockchain.Blockchain, error) {
 	if !s.Exists() {
 		return nil, nil
 	}
@@ -43,15 +41,14 @@ func (s *JSONStorage) Load() (*domain.Blockchain, error) {
 	}
 
 	var data struct {
-		Blocks     []*domain.Block
-		ForkConfig *domain.ForkConfig
+		Blocks []*blockchain.Block
 	}
 
 	if err := json.Unmarshal(bytes, &data); err != nil {
 		return nil, err
 	}
 
-	return domain.LoadBlockchain(data.Blocks, data.ForkConfig), nil
+	return blockchain.NewBlockchain(data.Blocks), nil
 }
 
 func (s *JSONStorage) Exists() bool {
