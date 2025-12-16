@@ -1,0 +1,17 @@
+{
+  "chains": {
+    "branch_a": {
+      "file": "blockchain_branch_a.json",
+      "created_at": 1765862453,
+      "fork_from": "main",
+      "fork_point": 4
+    },
+    "main": {
+      "file": "blockchain_main.json",
+      "created_at": 1765862357,
+      "fork_from": null,
+      "fork_point": null
+    }
+  }
+}
+
