@@ -1,0 +1,88 @@
+{
+  "blocks": [
+    {
+      "Index": 0,
+      "Timestamp": 1765886557,
+      "Transactions": [
+        {
+          "ID": "",
+          "FullName": "GENESIS",
+          "Zachetka": "000000",
+          "Group": "GENESIS",
+          "Subject": "GENESIS",
+          "Course": 0,
+          "Grade": 0
+        }
+      ],
+      "PreviousHash": "0",
+      "Hash": "005f7b7145c36d09c6d8306fa23b72144c8d86f5e762add5d6ef08f5cc318aa4",
+      "MerkleRoot": "3d7f9aef4312867e06cc0cc655362452cad0d4c911d250b3913a378d8696c114",
+      "Nonce": 279
+    },
+    {
+      "Index": 1,
+      "Timestamp": 1765886557,
+      "Transactions": [
+        {
+          "ID": "fdd45178-8114-4294-bb3b-9d0d8bc2350e",
+          "FullName": "Иванов И.И.",
+          "Zachetka": "202434",
+          "Group": "5.507M",
+          "Subject": "Математика",
+          "Course": 5,
+          "Grade": 5
+        },
+        {
+          "ID": "28c45e84-bcdc-46e1-a604-30540184d479",
+          "FullName": "Петров П.П.",
+          "Zachetka": "202435",
+          "Group": "5.507M",
+          "Subject": "Физика",
+          "Course": 5,
+          "Grade": 4
+        },
+        {
+          "ID": "29729767-19ef-4f81-90cc-04b3be139e93",
+          "FullName": "Сидоров С.С.",
+          "Zachetka": "202436",
+          "Group": "5.507M",
+          "Subject": "Химия",
+          "Course": 5,
+          "Grade": 3
+        }
+      ],
+      "PreviousHash": "005f7b7145c36d09c6d8306fa23b72144c8d86f5e762add5d6ef08f5cc318aa4",
+      "Hash": "00859bfe9e9a03aa80f16d4b45111529f8d0a6334d74f9e4daadef4a949dabdf",
+      "MerkleRoot": "815319ce19de25c997118d734e240d35efb9280ebe1de5b2959c2385dd084c3c",
+      "Nonce": 264
+    },
+    {
+      "Index": 2,
+      "Timestamp": 1765886594,
+      "Transactions": [
+        {
+          "ID": "70003f66-5d1a-42ad-bfc2-cde2ffafe432",
+          "FullName": "Васильев В.В.",
+          "Zachetka": "202437",
+          "Group": "5.507M",
+          "Subject": "Биология",
+          "Course": 5,
+          "Grade": 5
+        },
+        {
+          "ID": "d764fff5-abcd-4932-bed2-b1baec265c7d",
+          "FullName": "Николаев Н.Н.",
+          "Zachetka": "202438",
+          "Group": "5.507M",
+          "Subject": "История",
+          "Course": 5,
+          "Grade": 4
+        }
+      ],
+      "PreviousHash": "00859bfe9e9a03aa80f16d4b45111529f8d0a6334d74f9e4daadef4a949dabdf",
+      "Hash": "0042841ddde974995a143effe734423ffb04ee9ac5b71621814ac1ac2f8ac0e5",
+      "MerkleRoot": "c6a5a742e21259cd2dcb7f6708adb6c7cc42c00221dc5097ff5455c3e7b20907",
+      "Nonce": 415
+    }
+  ]
+}
